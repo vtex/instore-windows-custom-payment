@@ -1,0 +1,5 @@
+{
+  "store.custom#instore-windows-payment": {
+    "path": "/checkout/instore-custom"
+  }
+}

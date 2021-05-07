@@ -1,0 +1,30 @@
+{
+  "store.custom#instore-windows-payment": {
+    "blocks": ["instore-windows-payment"],
+    "parent": {
+      "header": "header#empty",
+      "footer": "footer#empty"
+    }
+  },
+  "instore-windows-payment": {
+    "props": {}
+  },
+  "header#empty": {
+    "blocks": ["header-layout.desktop#empty", "header-layout.mobile#empty"]
+  },
+  "header-layout.desktop#empty": {
+    "children": []
+  },
+  "header-layout.mobile#empty": {
+    "children": []
+  },
+  "footer#empty": {
+    "blocks": ["footer-layout.desktop#empty", "footer-layout.mobile#empty"]
+  },
+  "footer-layout.desktop#empty": {
+    "children": []
+  },
+  "footer-layout.mobile#empty": {
+    "children": []
+  }
+}
