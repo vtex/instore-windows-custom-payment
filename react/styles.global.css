@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+section {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 0;
+  font-family: 'Fabriga', -apple-system, BlinkMacSystemFont, avenir next, avenir,
+    helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+h2 {
+  margin: 2em 0 1.5em;
+  text-align: center;
+}
+
+h3 {
+  margin: 1em 0 0 1em;
+  font-weight: 700;
+}
+
+button {
+  border: none;
+  padding: 0.8em;
+  font-size: 0.8em;
+  margin: 0 0.8em 0 0;
+  background-color: white;
+  border: 1px solid #aaa;
+  cursor: pointer;
+}
+
+fieldset {
+  border: none;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+input {
+  font-size: 1em;
+}
+
+.container {
+  padding: 1em;
+}
+
+.extra-info {
+  text-align: center;
+}
+
+.extra-info-input {
+  text-align: center;
+  padding: 0.8em 0.3em;
+  border-radius: 0.5em;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.send {
+  cursor: pointer;
+  padding: 0.8em 4em;
+  color: white;
+  background-color: #357edd;
+  border: none;
+  margin: 1em 0 3em;
+}
+
+.result {
+  padding: 1em;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.5em;
+  margin: 0 1em;
+  background-color: #fff;
+}
+
+.result p {
+  margin: 1em;
+}
+
+.error {
+  color: #ff4136;
+}
+
+.hidden {
+  display: none;
+}
+
+.actions {
+  margin: 2em 1em 1.5em;
+}

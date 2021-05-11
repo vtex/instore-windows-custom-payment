@@ -4,7 +4,8 @@
   "version": "0.1.0",
   "builders": {
     "store": "0.x",
-    "react": "3.x"
+    "react": "3.x",
+    "messages": "1.x"
   },
   "scripts": {
     "postreleasy": "vtex publish --verbose"
