@@ -1,14 +1,7 @@
 /* eslint-disable no-console */
-let result: Element | null
-
-export function setLogResultContainer(resultContainer: Element | null) {
-  result = resultContainer
-}
 
 export function logMsg(msg, className = '') {
-  if (!result) {
-    result = document.querySelector('#result')
-  }
+  const result = document.querySelector('#result')
 
   // This shouldn't be an else, since #result could not be mounted yet
   if (result) {
@@ -35,6 +28,8 @@ export function logError(msg) {
 }
 
 export function clearLogs() {
+  const result = document.querySelector('#result')
+
   if (result) {
     result.innerHTML = ''
   }

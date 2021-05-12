@@ -5,30 +5,80 @@ import { FormattedMessage } from 'react-intl'
 
 import './styles.global.css'
 import { clearLogs } from './utils/log'
-import init from './payment'
+import { initPayment, initRefund } from './payment'
+import type {
+  ContextParams,
+  PaymentParams,
+  RefundParams,
+  ResponsePaymentData,
+  ResponseRefundData,
+  PaymentError,
+} from './params'
+import {
+  listenForNewParams,
+  getParamsFromCurrentUrl,
+  sendResponse,
+} from './params'
 
-const start = () => {
+const start = (params: ContextParams) => {
   clearLogs()
 
-  init()
+  if (params.action === 'payment') {
+    initPayment(params as PaymentParams)
+      .then((data: ResponsePaymentData) => {
+        sendResponse({ type: 'payment-success', data })
+      })
+      .catch((error: PaymentError) => {
+        sendResponse({
+          type: 'payment-error',
+          data: {
+            paymentId: params.paymentId,
+            cardBrandName: '',
+            firstDigits: '',
+            lastDigits: '',
+            acquirerName: '',
+            tid: '',
+            acquirerAuthorizationCode: '',
+            nsu: '',
+            merchantReceipt: '',
+            customerReceipt: '',
+            responsecode: error.responsecode ?? 1,
+            reason: error.message,
+          },
+        })
+      })
+  } else if (params.action === 'payment-reversal') {
+    initRefund(params as RefundParams)
+      .then((data: ResponseRefundData) => {
+        sendResponse({ type: 'payment-reversal-success', data })
+      })
+      .catch((error: PaymentError) => {
+        sendResponse({
+          type: 'payment-reversal-error',
+          data: {
+            paymentId: params.paymentId,
+            paymentAcquirerAuthorizationCode: '',
+            acquirerAuthorizationCode: '',
+            merchantReceipt: '',
+            customerReceipt: '',
+            responsecode: error.responsecode ?? 1,
+            reason: error.message,
+          },
+        })
+      })
+  }
 }
 
 const Root: FC = () => {
-  const retryCallback = useCallback(() => {
-    window.location.reload()
-  }, [])
-
-  const clearCacheCallback = useCallback(() => {
-    lscache.flush()
-    window.location.reload()
-  }, [])
-
   useEffect(() => {
-    start()
+    start(getParamsFromCurrentUrl())
+
+    return listenForNewParams(start)
   }, [])
 
   return (
-    <section className="container bg-base">
+    <section id="root-container" className="container bg-base">
+      <div id="popup-container" />
       <h2 id="container-title" className="center">
         <FormattedMessage id="store/waiting-payment-conection" />
       </h2>
@@ -41,10 +91,21 @@ const Root: FC = () => {
         </h3>
         <div id="result" />
         <div className="actions">
-          <button id="retry" onClick={retryCallback}>
+          <button
+            id="retry"
+            onClick={() => {
+              window.location.reload()
+            }}
+          >
             <FormattedMessage id="store/retry" />
           </button>
-          <button id="clear-cache" onClick={clearCacheCallback}>
+          <button
+            id="clear-cache"
+            onClick={() => {
+              lscache.flush()
+              window.location.reload()
+            }}
+          >
             <FormattedMessage id="store/clear-cache" />
           </button>
         </div>

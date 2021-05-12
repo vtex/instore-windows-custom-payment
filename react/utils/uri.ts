@@ -54,7 +54,9 @@ export function getURIProtocol(uri: string) {
   return parsedURI ? parsedURI.protocol.replace(':', '') : null
 }
 
-export function convertDictionaryToQueryString(obj: Record<string, string>) {
+export function convertDictionaryToQueryString(
+  obj: Record<string, string | number>
+) {
   if (!obj) return ''
 
   const str: string[] = []
@@ -62,8 +64,6 @@ export function convertDictionaryToQueryString(obj: Record<string, string>) {
   for (const p in obj) {
     // eslint-disable-next-line no-prototype-builtins
     if (obj.hasOwnProperty(p)) {
-      window.encodeURIComponent(p)
-
       str.push(
         `${window.encodeURIComponent(p)}=${window.encodeURIComponent(obj[p])}`
       )
