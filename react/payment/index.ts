@@ -5,7 +5,7 @@ import type {
   ResponseRefundData,
 } from '../params'
 import { PaymentError } from '../params'
-import { logMsg, logError } from '../utils/log'
+import { logMsg, logError, formatPrice } from '../utils/log'
 
 declare global {
   interface Window {
@@ -51,7 +51,13 @@ function getExampleOfRefundSuccess(params: RefundParams): ResponseRefundData {
 export async function initPayment(
   params: PaymentParams
 ): Promise<ResponsePaymentData> {
-  logMsg('Payment starting')
+  logMsg(
+    `${
+      params.paymentType === 'debit' ? 'Debit' : 'Credit'
+    } payment starting (payment id: ${params.paymentId}) with ${
+      params.installments
+    } installment for amount of $${formatPrice(params.amount)}`
+  )
 
   const rootContainer = document.querySelector('#popup-container')
 
@@ -110,7 +116,7 @@ export async function initPayment(
 export async function initRefund(
   params: RefundParams
 ): Promise<ResponseRefundData> {
-  logMsg('Refund starting')
+  logMsg(`Refund starting for payment id: ${params.paymentId}`)
 
   const rootContainer = document.querySelector('#popup-container')
 
@@ -143,8 +149,6 @@ export async function initRefund(
 
   window.popupClose = () => {
     const elem = document.querySelector('.payment-popup')
-
-    console.log('>>> popupClose', elem)
 
     if (elem) {
       elem.parentNode?.removeChild(elem)

@@ -37,21 +37,9 @@ export function appendHashOnURI(uri: string, hash: string) {
     return null
   }
 
-  const { protocol, host, path, query } = parsedUrl
+  const { protocol, host, pathname, query } = parsedUrl
 
-  return buildUri(protocol, host, path, query, hash)
-}
-
-export function getURIHost(uri: string) {
-  const parsedURI = parseURI(uri)
-
-  return parsedURI ? parsedURI.host : null
-}
-
-export function getURIProtocol(uri: string) {
-  const parsedURI = parseURI(uri)
-
-  return parsedURI ? parsedURI.protocol.replace(':', '') : null
+  return buildUri(protocol, host, pathname, query, hash)
 }
 
 export function convertDictionaryToQueryString(
@@ -77,7 +65,7 @@ export function convertDictionaryToQueryString(
 export function buildUri(
   protocol: string,
   host: string,
-  path: string,
+  pathname: string,
   query: Record<string, string>,
   hash: string
 ) {
@@ -85,30 +73,8 @@ export function buildUri(
     protocol,
     host,
     hash,
-    pathname: path,
+    pathname,
     query,
     slashes: true,
   })
-}
-
-export function addParamToQueryString(uri, key, value) {
-  const parsedURIObj = parseURI(uri)
-
-  if (!parsedURIObj) {
-    return null
-  }
-
-  const parsedURI = {
-    host: parsedURIObj.host,
-    port: parsedURIObj.port,
-    pathname: parsedURIObj.pathname,
-    protocol: parsedURIObj.protocol,
-    query: parsedURIObj.query,
-    slashes: true,
-    hash: '',
-  }
-
-  parsedURI.query = Object.assign(parsedURI.query, { [key]: value })
-
-  return URIParser.format(parsedURI)
 }

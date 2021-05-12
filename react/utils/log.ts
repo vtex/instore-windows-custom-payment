@@ -13,7 +13,7 @@ export function logMsg(msg, className = '') {
   console.log('New message', msg)
 }
 
-function formatPrice(price) {
+export function formatPrice(price) {
   return parseFloat(price).toFixed(2).replace('.', ',')
 }
 
