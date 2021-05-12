@@ -1,6 +1,6 @@
 {
-  "instore/waiting-payment-conection": "Aguarde a conexão com o ambiente de pagamento",
-  "instore/system-actions": "Ações do Sistema",
-  "instore/retry": "Tentar novamente",
-  "instore/clear-cache": "Limpar dados inseridos"
+  "store/waiting-payment-conection": "Aguarde a conexão com o ambiente de pagamento",
+  "store/system-actions": "Ações do Sistema",
+  "store/retry": "Tentar novamente",
+  "store/clear-cache": "Limpar dados inseridos"
 }

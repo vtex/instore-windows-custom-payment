@@ -3,7 +3,15 @@ import React, { useCallback, useEffect } from 'react'
 import type { FC } from 'react'
 import { FormattedMessage } from 'react-intl'
 
+import './styles.global.css'
+import { clearLogs } from './utils/log'
 import init from './payment'
+
+const start = () => {
+  clearLogs()
+
+  init()
+}
 
 const Root: FC = () => {
   const retryCallback = useCallback(() => {
@@ -16,28 +24,28 @@ const Root: FC = () => {
   }, [])
 
   useEffect(() => {
-    init()
+    start()
   }, [])
 
   return (
-    <section className="container">
+    <section className="container bg-base">
       <h2 id="container-title" className="center">
-        <FormattedMessage id="instore/waiting-payment-conection" />
+        <FormattedMessage id="store/waiting-payment-conection" />
       </h2>
 
       <form id="extra-info" className="extra-info hidden" />
 
       <div className="result">
-        <h3 className="">
-          <FormattedMessage id="instore/system-actions" />
+        <h3>
+          <FormattedMessage id="store/system-actions" />
         </h3>
         <div id="result" />
         <div className="actions">
           <button id="retry" onClick={retryCallback}>
-            <FormattedMessage id="instore/retry" />
+            <FormattedMessage id="store/retry" />
           </button>
           <button id="clear-cache" onClick={clearCacheCallback}>
-            <FormattedMessage id="instore/clear-cache" />
+            <FormattedMessage id="store/clear-cache" />
           </button>
         </div>
       </div>
